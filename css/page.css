@@ -5,16 +5,20 @@ header nav {
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
 }
 
-
 header .nav-logo {
-  margin-right: auto;
-  margin-left: 5px;
-  font-size: 16px;
+  margin-left: 10px;  
   font-size: 18px;
   font-weight: 700;
 } 
+
+header .nav-logo i {
+  font-size: 30px;
+  color: #6aa6eb;  
+ }
 
 .nav-bar-right {
   display: flex;
@@ -26,4 +30,28 @@ header .nav-logo {
   margin: 15px 10px;
   font-size: 14px;
   font-weight: 200;
+}
+
+.hero-section {
+  margin-top: 135px;
+  text-align: center;
+}
+
+.home-icon {
+  padding: 1.25rem 2.55rem;
+  background-color: #6aa6eb;
+  display: inline-block;
+  border-radius: 50rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.home-icon .house-icon {
+  font-size: 6rem;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.search-section {
+
 }
