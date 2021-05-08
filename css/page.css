@@ -28,7 +28,7 @@ header .nav-logo i {
 
 .nav-bar-right li {
   margin: 15px 10px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 200;
 }
 
@@ -54,4 +54,42 @@ header .nav-logo i {
 
 .search-section {
 
+}
+
+.search-input{  
+  display: flex;  
+  background-color: rgb(233, 233, 233);
+  margin-left: 20px;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.search-input text {
+  margin-right: auto;  
+  border:none;
+}
+
+.search-container label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.search input{
+  padding: 0.75rem 1.5rem;
+  background-color: #f1f3f5;
+  border: 1px solid #f1f3f5;
+  border-radius: 50rem;
+}
+
+.search input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-sizing: inset 0 1px 1px rgba(0, 0, 0, 0.0125), 0 0 8px rgba(34, 139, 230, 0.5);
+}
+
+.search .fa-search{
+  position: absolute;
+  right: 10px;
 }
