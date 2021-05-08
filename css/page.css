@@ -53,7 +53,7 @@ header .nav-logo i {
 }
 
 .search-section {
-
+  margin-top: 100px;
 }
 
 .search-input{  
@@ -75,7 +75,6 @@ header .nav-logo i {
   align-items: center;
 }
 
-
 .search input{
   padding: 0.75rem 1.5rem;
   background-color: #f1f3f5;
@@ -94,6 +93,16 @@ header .nav-logo i {
   right: 10px;
 }
 
+.device-card-flexbox{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .device-card {
   width: 250px;
   background: white;
@@ -102,6 +111,7 @@ header .nav-logo i {
   display: inline-block;
   border: 1px solid #d9d9d9;
   border-radius: 21px;
+  margin: 10px;
 }
 
 .device-card .device-card-header{
@@ -114,7 +124,22 @@ header .nav-logo i {
   margin-top: 15px;
 }
 
+.vent-icon-wrapper{
+  background: #6aa6eb;
+  padding: 4px 6px;
+}
+
+.vent-icon-wrapper{
+  background: #6aa6eb;
+  padding: 4px 6px;
+} 
+
+.thermometer-icon-wrapper {
+  background: #ff9800;
+  padding: 4px 10px;
+}
+
 .device-card p{
   font-size: 50px;
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
