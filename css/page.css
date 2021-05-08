@@ -142,8 +142,8 @@ header .nav-logo i {
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  width: 100%;  
+  justify-content: flex-start;
+  width: 100%;
   margin-top: 15px;
   padding: 0px 10px;
 }
@@ -151,17 +151,18 @@ header .nav-logo i {
 .vent-icon-wrapper{
   background: #6aa6eb;
   padding: 4px 6px;
-}
-
-.vent-icon-wrapper{
-  background: #6aa6eb;
-  padding: 4px 6px;
+  margin-right: 10px;
 } 
+
+.thermometer-icon-wrapper,
+.vent-icon-wrapper {
+  margin-right: 15px;
+}
 
 .thermometer-icon-wrapper {
   margin-left: 5px;
   background: #ff9800;
-  padding: 4px 10px;
+  padding: 4px 10px;  
 }
 
 .device-card p{
