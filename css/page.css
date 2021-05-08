@@ -93,6 +93,24 @@ header .nav-logo i {
   right: 10px;
 }
 
+.search-filters ul{
+  display: flex;
+  align-items: center;
+  flex-direction: row;  
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.filter-label{      
+  margin:5px 20px 5px 0px;
+  font-weight: 500;  
+}
+
+.filter-label.active {
+  color: #6aa6eb;
+  font-weight: 700;
+}
+
 .device-card-flexbox{
   display: flex;
   flex-direction: row;
