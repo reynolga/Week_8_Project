@@ -1,0 +1,29 @@
+
+header nav {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+
+header .nav-logo {
+  margin-right: auto;
+  margin-left: 5px;
+  font-size: 16px;
+  font-size: 18px;
+  font-weight: 700;
+} 
+
+.nav-bar-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-bar-right li {
+  margin: 15px 10px;
+  font-size: 14px;
+  font-weight: 200;
+}
