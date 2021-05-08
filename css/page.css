@@ -93,3 +93,28 @@ header .nav-logo i {
   position: absolute;
   right: 10px;
 }
+
+.device-card {
+  width: 250px;
+  background: white;
+  text-align: center;
+  height: 150px;
+  display: inline-block;
+  border: 1px solid #d9d9d9;
+  border-radius: 21px;
+}
+
+.device-card .device-card-header{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;  
+  margin-top: 15px;
+}
+
+.device-card p{
+  font-size: 50px;
+  margin: 10px 0px;
+}
