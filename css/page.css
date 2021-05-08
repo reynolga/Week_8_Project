@@ -106,6 +106,10 @@ header .nav-logo i {
   font-weight: 500;  
 }
 
+.filter-label:hover {
+  cursor: pointer;
+}
+
 .filter-label.active {
   color: #6aa6eb;
   font-weight: 700;
