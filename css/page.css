@@ -122,7 +122,7 @@ header .nav-logo i {
 }
 
 .device-card {
-  width: 250px;
+  width: 300px;
   background: white;
   text-align: center;
   height: 150px;
@@ -145,6 +145,7 @@ header .nav-logo i {
   justify-content: space-around;
   width: 100%;  
   margin-top: 15px;
+  padding: 0px 10px;
 }
 
 .vent-icon-wrapper{
@@ -158,6 +159,7 @@ header .nav-logo i {
 } 
 
 .thermometer-icon-wrapper {
+  margin-left: 5px;
   background: #ff9800;
   padding: 4px 10px;
 }
