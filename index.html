@@ -28,6 +28,14 @@
     <h1 class="header-lg">Home Automation</h1>
   </section>
 
+  <section class="overview">
+    <div>
+      <p class="overview-label">Number of Devices: <span id='number-of-devices'>2</span></p>
+      <p class="overview-label">Average Temperature: <span id='avg-temp'>64.5</span> <span>&#8457</span></p>
+      <p class="overview-label">Overall Utilization: <span id='utilization'>90</span> <span>%</span></p>
+    </div>
+  </section>
+
   <section class="search-section">
     <div class="search-container">
       <label class="search" for="search">
@@ -42,8 +50,8 @@
         <li class="filter-label" data-filter="sortByTemp">Sort by Temperature</li>
         <li class="filter-label" data-filter="sortByOpen">Sort by Open</li>
         <li class="filter-label" data-filter="sortByRoom">Sort by Room</li>
-        <li class="filter-label" data-filter="vent">Vent Devices</li>
-        <li class="filter-label" data-filter="temperature">Temperature Devices</li>      
+        <li class="filter-label" data-filter="vent">Filter By Vent Devices</li>
+        <li class="filter-label" data-filter="temperature">Filter By Temperature Devices</li>      
       </ul>
     </div>
   </section>
@@ -60,6 +68,8 @@
       
     </div>   
   </section>
+
+  
 
   <script type="module" src="./js/jsonFile.js" async defer></script>
   <script type="module" src="./js/main.js" async defer></script>

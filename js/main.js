@@ -1,4 +1,67 @@
-import {getRemoteServoDevices, getRemoteTemperatureDevices} from './jsonFile.js';
+import {getRemoteVentDevices, getRemoteTemperatureDevices} from './jsonFile.js';
+
+
+
+const calculateAvgTemp = () => {
+  let count = 0.0;
+  const avgTemp = tempDevices.reduce((acc, dev) => { 
+     if(dev.currentTemp > 0) {
+       count++;
+       return acc + dev.currentTemp;
+     } else {
+       return acc;
+     }
+  }, 0) //0 Initial value
+
+  return avgTemp/count;
+}
+
+const calculateOverallUtilization = () => {
+  
+  const totalUtilization = ventDevices.reduce((acc, dev) => { 
+      return acc + dev.currentSetPosition;
+  }, 0) //0 Initial value
+
+  return totalUtilization/ventDevices.length;
+}
+
+const getDeviceList = () => {
+  const ventNames = ventDevices.map((device) => { return {name:device.controlName, type:'vent'} }); 
+  const tempNames = tempDevices.map((device) => { return {name:device.deviceLocation, type:'temp'} }); 
+
+  const allNames = [...ventNames, ...tempNames];
+  return allNames;
+}
+
+const findDevice = (nameType) => { 
+  //find which device
+  if(listItem.type == 'vent') {
+    return ventDevices.find(vent => vent.controlName === listItem.name); 
+    } else if(listItem.type == 'temp'){
+    //Find it.
+    return tempDevices.find(vent => vent.deviceLocation === listItem.name);        
+    }
+} 
+
+const updateDeviceOverview = (deviceList) => {
+  const htmlDevices = getDeviceList();
+
+    //Update Temperature
+  const htmlAvgTemp = document.getElementById('avg-temp');  
+  htmlAvgTemp.innerText = calculateAvgTemp().toFixed(1);
+
+  //update Utilization
+  const htmlUtilization = document.getElementById('utilization');
+  htmlUtilization.innerText = calculateOverallUtilization().toFixed(1);
+
+  // Update number of Decives
+  const htmlNumberOfDevices = document.getElementById('number-of-devices');
+  htmlNumberOfDevices.innerText = ventDevices.length + tempDevices.length;
+}
+
+
+
+
 
 const appendToCardList = (htmlString) => {
   const cardList = document.getElementById('device-card-flexbox');  
@@ -35,12 +98,12 @@ const createVentCard = (ventCard) => {
   appendToCardList(newVent);
 }
 
-const servoDevices = getRemoteServoDevices();
+const ventDevices = getRemoteVentDevices();
 const tempDevices = getRemoteTemperatureDevices();
 const dataFilter = '[data-filter]';
 
 tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
-servoDevices.forEach((servoDevice) => createVentCard(servoDevice));
+ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
 
 const searchBox = document.getElementById("search");
 
@@ -77,14 +140,6 @@ const showAllCards = () => {
   })
 }
 
-const hideAllCards = () => {
-  const cards = document.getElementsByClassName("device-card"); 
-  Array.from(cards).forEach( (card) => { 
-    card.style.display = 'none';
-  })
-}
-
-
 
 const showCardsOfType = (type) => {
   const cards = document.getElementsByClassName("device-card"); 
@@ -107,11 +162,11 @@ const sortCardsByTemperature = () => {
 
   //create cards
   sortedList.forEach((thermoDevice) => createThermoCard(thermoDevice));
-  servoDevices.forEach((servoDevice) => createVentCard(servoDevice));
+  ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
 }
 
 const sortCardsByOpenPosition = () => {
-  const sortedList = servoDevices.sort(function(a,b) {
+  const sortedList = ventDevices.sort(function(a,b) {
     return a.currentSetPosition - b.currentSetPosition;
   })
   //delete cards
@@ -119,7 +174,7 @@ const sortCardsByOpenPosition = () => {
   cardList.innerHTML = ""; 
 
   //create cards
-  sortedList.forEach((servoDevice) => createVentCard(servoDevice));
+  sortedList.forEach((ventDevice) => createVentCard(ventDevice));
   tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice)); 
 }
 
@@ -128,10 +183,8 @@ const sortByRoom = () => {
   const cardList = document.getElementById('device-card-flexbox');  
   cardList.innerHTML = ""; 
 
-  const servoNames = servoDevices.map((device) => { return {name:device.controlName, type:'servo'} }); 
-  const tempNames = tempDevices.map((device) => { return {name:device.deviceLocation, type:'temp'} }); 
+  const allNames = getDeviceList(); 
 
-  const allNames = [...servoNames, ...tempNames];
   allNames.sort(function(a,b) {
     if(a.name < b.name) return -1;
     if(a.name > b.name) return 1;
@@ -141,16 +194,16 @@ const sortByRoom = () => {
   allNames.forEach((listItem) => {
     
     //find which device
-    if(listItem.type == 'servo') {
+    if(listItem.type == 'vent') {
         //Find it.
-        const servoDevice = servoDevices.find(servo => servo.controlName === listItem.name);        
+        const ventDevice = ventDevices.find(vent => vent.controlName === listItem.name);        
         //build it.
-        if(servoDevice != undefined) {
-          createVentCard(servoDevice);
+        if(ventDevice != undefined) {
+          createVentCard(ventDevice);
         }
     }else if(listItem.type == 'temp'){
         //Find it.
-        const tempDev = tempDevices.find(servo => servo.deviceLocation === listItem.name);        
+        const tempDev = tempDevices.find(vent => vent.deviceLocation === listItem.name);        
         //build it.
         if(tempDev != undefined) {
           createThermoCard(tempDev);
@@ -158,6 +211,26 @@ const sortByRoom = () => {
     }
   })
 }
+
+const getDevicesFromHtml = () => {
+
+  const cards = document.getElementsByClassName("device-card"); 
+  const tempDeviceList = [];
+  const ventDeviceList = [];
+
+  Array.from(cards).forEach((card) => { 
+    if(card.dataset.devicetype == 'vent'){
+      
+    } else if(card.dataset.devicetype == 'temperature'){      
+      card.dataset.item //Location
+      find
+    }
+  })
+
+}
+
+
+
 
 for(const filter of Array.from(filterLink))
 {
@@ -179,6 +252,9 @@ for(const filter of Array.from(filterLink))
     }else if (this.dataset.filter == 'temperature'){
       showCardsOfType('temperature');
     }
+
+    updateDeviceOverview(); //After changes to the table.
   })
 }
 
+updateDeviceOverview();

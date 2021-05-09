@@ -1,4 +1,4 @@
-const getRemoteServoDevices = () => {
+const getRemoteVentDevices = () => {
   //http://localhost:3000/hvaccontrol/remoteservodevice/all
   return [
     {"id":8,"controlName":"Master bedroom 1","macAddress":"5c:cf:7f:23:95:4b","closedPosition":25,"openPosition":150,"currentSetPosition":100,"timeStamp":"2019-12-08T16:49:55.483Z","roomRoomId":4,"softwareVersion":"4.0.1","controlCode":1,"ipAddress":"192.168.0.27","posChanged":0,"pressure":99622,"temperature":61.89,"tempSlopeCalibration":1.047,"tempOffsetCalibration":-4.599},
@@ -36,4 +36,4 @@ const getRemoteTemperatureDevices = () => {
   ];  
 }
 
-export {getRemoteServoDevices, getRemoteTemperatureDevices};
+export {getRemoteVentDevices, getRemoteTemperatureDevices};
