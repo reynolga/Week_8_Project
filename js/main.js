@@ -2,9 +2,9 @@ import {getRemoteVentDevices, getRemoteTemperatureDevices} from './jsonFile.js';
 
 
 
-const calculateAvgTemp = () => {
+const calculateAvgTemp = (temperatureDeviceList) => {
   let count = 0.0;
-  const avgTemp = tempDevices.reduce((acc, dev) => { 
+  const avgTemp = temperatureDeviceList.reduce((acc, dev) => { 
      if(dev.currentTemp > 0) {
        count++;
        return acc + dev.currentTemp;
@@ -13,16 +13,21 @@ const calculateAvgTemp = () => {
      }
   }, 0) //0 Initial value
 
-  return avgTemp/count;
+  let result = avgTemp/count;
+  if(isNaN(result))return '-';
+  return result.toFixed(1);
 }
 
-const calculateOverallUtilization = () => {
+const calculateOverallUtilization = (ventDeviceList) => {
   
-  const totalUtilization = ventDevices.reduce((acc, dev) => { 
+  const totalUtilization = ventDeviceList.reduce((acc, dev) => { 
       return acc + dev.currentSetPosition;
   }, 0) //0 Initial value
 
-  return totalUtilization/ventDevices.length;
+   const result = totalUtilization/ventDeviceList.length;
+
+   if(isNaN(result)){ return '-';}
+   return result.toFixed(1);
 }
 
 const getDeviceList = () => {
@@ -33,34 +38,21 @@ const getDeviceList = () => {
   return allNames;
 }
 
-const findDevice = (nameType) => { 
-  //find which device
-  if(listItem.type == 'vent') {
-    return ventDevices.find(vent => vent.controlName === listItem.name); 
-    } else if(listItem.type == 'temp'){
-    //Find it.
-    return tempDevices.find(vent => vent.deviceLocation === listItem.name);        
-    }
-} 
-
 const updateDeviceOverview = (deviceList) => {
-  const htmlDevices = getDeviceList();
+  const [tempVentDevices, tempTemperatureDevices] = getDevicesFromHtml()
 
-    //Update Temperature
+  //Update Temperature
   const htmlAvgTemp = document.getElementById('avg-temp');  
-  htmlAvgTemp.innerText = calculateAvgTemp().toFixed(1);
+  htmlAvgTemp.innerText = calculateAvgTemp(tempTemperatureDevices);
 
   //update Utilization
   const htmlUtilization = document.getElementById('utilization');
-  htmlUtilization.innerText = calculateOverallUtilization().toFixed(1);
+  htmlUtilization.innerText = calculateOverallUtilization(tempVentDevices);
 
   // Update number of Decives
   const htmlNumberOfDevices = document.getElementById('number-of-devices');
-  htmlNumberOfDevices.innerText = ventDevices.length + tempDevices.length;
+  htmlNumberOfDevices.innerText = tempVentDevices.length + tempTemperatureDevices.length;
 }
-
-
-
 
 
 const appendToCardList = (htmlString) => {
@@ -219,14 +211,21 @@ const getDevicesFromHtml = () => {
   const ventDeviceList = [];
 
   Array.from(cards).forEach((card) => { 
-    if(card.dataset.devicetype == 'vent'){
-      
-    } else if(card.dataset.devicetype == 'temperature'){      
-      card.dataset.item //Location
-      find
+    if(card.style.display != 'none') {
+
+      if(card.dataset.devicetype == 'vent'){
+        const ventDevice = ventDevices.find(vent => vent.controlName === card.dataset.item);     
+        if(ventDevice != undefined) ventDeviceList.push(ventDevice);
+
+      } else if(card.dataset.devicetype == 'temperature'){      
+        const tempDev = tempDevices.find(vent => vent.deviceLocation === card.dataset.item); 
+        if(tempDev != undefined) tempDeviceList.push(tempDev);
+      }
     }
   })
+  
 
+  return [ventDeviceList, tempDeviceList];
 }
 
 

@@ -111,6 +111,7 @@ header .nav-logo i {
   flex-direction: row;  
   margin-left: 20px;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .filter-label{      
