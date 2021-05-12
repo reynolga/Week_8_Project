@@ -139,7 +139,7 @@ header .nav-logo i {
 }
 
 .device-card {
-  width: 300px;
+  width: 315px;
   background: white;
   text-align: center;
   height: 150px;
@@ -151,7 +151,7 @@ header .nav-logo i {
 
 .device-card:hover {
   -webkit-box-shadow: 2px 5px 11px 5px #798284; 
-  box-shadow: 2px 5px 11px 5px #798284;
+  box-shadow: 2px 5px 11px 5px #798284;  
 }
 
 .device-card .device-card-header{
@@ -182,24 +182,43 @@ header .nav-logo i {
   margin-left: 5px;
   background: #ff9800;
   padding: 7px 14px;
+  border-radius: 25px;  
+}
+
+.triple-dot-wrapper{
+  margin-left: auto;
+  cursor: pointer;
 }
 
 .device-card p{
-  font-size: 50px;
+  font-size: 40px;
   margin: 5px 0px;
 }
 
-.modal {
-  /* position: fixed;
+.page-block {
+  background:rgba(0, 0, 0, 0.8)
+}
+
+
+.modal,
+.full-site-modal {
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0; */
+  right: 0; 
   padding: 1rem;
   transition: all 0.35s ease-in;
-  /* visibility: hidden; */
+  visibility: hidden;
   opacity: 1;
   z-index: 10;
+}
+
+.modal {
+  background: white;
+  height: 400px;
+  margin: auto;
+  max-width: 800px;
 }
 
 .modal-header {
@@ -228,11 +247,16 @@ header .nav-logo i {
   flex: 1
 }
 
+.starWrapper {
+  margin-right: auto;
+}
+
 .close-dialog-wrapper{
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: 15px;
+  margin-bottom: auto;  
+}
+
+.close-dialog-wrapper i {
+  margin-top: 0;
 }
 
 .flex-wrapper {
