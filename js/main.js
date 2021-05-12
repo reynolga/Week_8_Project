@@ -1,4 +1,5 @@
 import {getRemoteVentDevices, getRemoteTemperatureDevices} from './jsonFile.js';
+import {getVentCardString, getThermoCardString} from './htmlHelper.js'
 
 
 
@@ -62,31 +63,13 @@ const appendToCardList = (htmlString) => {
 
 const createThermoCard = (thermoCard) => {
   // <!-- Thermometer Card -->
-  const newThermoDevice = `<div data-item="${thermoCard.deviceLocation}" data-deviceType="temperature" class="device-card">
-    <div class="device-card-header">
-      <div class="thermometer-icon-wrapper">
-        <i class="fas fa-thermometer-half"></i>
-      </div>
-      <h2>${thermoCard.deviceLocation}</h2>      
-    </div>
-    <p>${thermoCard.currentTemp.toFixed(1)} &#8457</p>
-  </div>`
-  
+  const newThermoDevice = getThermoCardString(thermoCard);
   appendToCardList(newThermoDevice);
 }
 
 const createVentCard = (ventCard) => {
 //<!-- Vent Card -->
-  const newVent = `<div data-item="${ventCard.controlName}" data-deviceType="vent" class="device-card">
-    <div class="device-card-header">
-      <div class="vent-icon-wrapper">
-        <i class="fab fa-elementor"></i>
-      </div>
-      <h2>${ventCard.controlName}</h2>
-    </div>
-    <p>${ventCard.currentSetPosition}%</p>      
-  </div>`;
-
+  const newVent = getVentCardString(ventCard);
   appendToCardList(newVent);
 }
 
@@ -228,9 +211,6 @@ const getDevicesFromHtml = () => {
   return [ventDeviceList, tempDeviceList];
 }
 
-
-
-
 for(const filter of Array.from(filterLink))
 {
   filter.addEventListener("click", function(filter){
@@ -257,3 +237,80 @@ for(const filter of Array.from(filterLink))
 }
 
 updateDeviceOverview();
+
+
+const createVentModal = (ventObject) => {
+  /*{"id":8,
+  "controlName":"Master bedroom 1",                //Show
+  "macAddress":"5c:cf:7f:23:95:4b",                //Show
+  "closedPosition":25,"openPosition":150,
+  "currentSetPosition":100,                        //Show
+  "timeStamp":"2019-12-08T16:49:55.483Z",
+  "roomRoomId":4,
+  "softwareVersion":"4.0.1",                       //Show
+  "controlCode":1,                                 //Show
+  "ipAddress":"192.168.0.27",                
+  "posChanged":0,"pressure":99622,
+  "temperature":61.89,                             
+  "tempSlopeCalibration":1.047,
+  "tempOffsetCalibration":-4.599},  
+  */
+  
+}
+
+const createTemperatureModal = (tempObject) => {
+  /*{"
+  {"id":60,
+  "macAddress":"60:1:94:b:95:68",
+  "ipAddress":"192.168.0.33",
+  "deviceType":0,
+  "deviceLocation":"Office",
+  "timeStamp":"2019-12-08T16:49:30.483Z",
+  "tempSlopeCalibration":1.1059999465942383,"tempOffsetCalibration":-7.642000198364258,
+  "softwareVersion":"4.3.1",
+  "controlCode":1,
+  "roomRoomId":2,
+  "currentTemp":68.76,
+  "currentHumidity":null,
+  "pressure":99262,
+  "batteryVoltage":3.29,
+  "batteryCalibrationOffset":0.15},
+  */
+
+  // Create String
+  const modalDialog = `<div id="device-modal" data-location="${tempObject.deviceLocation}" data-deviceType="temperature" class="full-site-modal page-block" data-animation="zoomInOut">      
+    <div class="modal">
+      <div class="modal-header">
+        <div class="thermometer-icon-wrapper">
+          <i class="fas fa-thermometer-half"></i>
+        </div>
+        <h2>Temperature Sensor</h2>
+        <div class="starWrapper"><i class="fas fa-star"></i></div>
+        <div class="close-dialog-wrapper"><i class="fas fa-times"></i></div>
+      </div>
+      <div class="modal-dialog-line"><span>Room:</span><span>${tempObject.deviceLocation}</span></div>
+      <div class="modal-dialog-line"><span>Mac Address:</span> <span>${tempObject.macAddress}</span></div>
+      <div class="modal-dialog-line"><span>Ip Address:</span> <span>${tempObject.ipAddress}</span></div>
+      <div class="modal-dialog-line"><span>Device Type:</span> <span>Temperature sensor%</span></div>
+      <div class="modal-dialog-line"><span>Software Version:</span> <span>${tempObject.softwareVersion}</span></div>
+      <div class="modal-dialog-line"><span>Temperature:</span> <span>${tempObject.currentTemp}</span></div> 
+      <div class="modal-dialog-line"><span>Humidity:</span> <span>${tempObject.currentHumidity || 0}</span></div> 
+      <div class="modal-dialog-line"><span>Voltage:</span> <span>${tempObject.batteryVoltage}</span></div> 
+    </div>
+  </div>`
+
+  //Append to html
+  
+}
+
+//createVentModal(ventDevices[1]);
+
+const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
+
+for(const tripleDots of cardEditor) {
+  tripleDots.addEventListener('click', function(event) {
+      console.log('clicked' + event + this);
+
+      //CreateModal
+  })
+}
