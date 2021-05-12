@@ -321,3 +321,9 @@ for(const tripleDots of cardEditor) {
   })
 }
 
+
+document.addEventListener('keyup', (e) => {
+  if(e.key === 'Escape'){
+    document.querySelector('.full-site-modal.is-visible').classList.remove('is-visible');
+  }
+})

@@ -54,7 +54,7 @@ const getVentCardString = (ventCard) => {
   */
 
 
-    const modalDialog = `<div class="device-modal" data-location="${thermoObject.deviceLocation}" data-deviceType="temperature" class="full-site-modal page-block" data-animation="zoomInOut">      
+    const modalDialog = `<div class="full-site-modal device-modal page-block" data-location="${thermoObject.deviceLocation}" data-deviceType="temperature" class="full-site-modal page-block" data-animation="zoomInOut">      
     <div class="modal">
       <div class="modal-header">
         <div class="thermometer-icon-wrapper">
@@ -98,8 +98,8 @@ const getVentCardModal = (ventObject) =>{
   "tempSlopeCalibration":1.047,
   "tempOffsetCalibration":-4.599},
   */
-
-  const modalDialog = `<div class="device-modal" data-item="${ventObject.controlName}" data-deviceType="vent" class="full-site-modal page-block" data-animation="zoomInOut">      
+  
+  const modalDialog = `<div class="full-site-modal device-modal page-block" data-item="${ventObject.controlName}" data-deviceType="vent" class="full-site-modal page-block" data-animation="zoomInOut">      
     <div class="modal">      
       <div class="modal-header">
         <div class="vent-icon-wrapper">
