@@ -30,6 +30,7 @@ header .nav-logo i {
   margin: 15px 10px;
   font-size: 16px;
   font-weight: 200;
+  cursor: pointer;
 }
 
 .hero-section {
@@ -219,6 +220,7 @@ header .nav-logo i {
   margin: auto;
   padding: 1rem;
   width: 800px;
+  border-radius: 15px;
 }
 
 .modal-header {

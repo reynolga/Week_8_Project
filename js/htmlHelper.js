@@ -66,12 +66,12 @@ const getVentCardString = (ventCard) => {
       </div>
       <div class="modal-dialog-line"><span>Room:</span><span>${thermoObject.deviceLocation}</span></div>
       <div class="modal-dialog-line"><span>Mac Address:</span> <span>${thermoObject.macAddress}</span></div>
-      <div class="modal-dialog-line"><span>Ip Address:</span> <span>${thermoObject.ipAddress}</span></div>
+      <div class="modal-dialog-line"><span>Ip Address:</span> <span>${thermoObject.ipAddress || "-"}</span></div>
       <div class="modal-dialog-line"><span>Device Type:</span> <span>Temperature sensor</span></div>
-      <div class="modal-dialog-line"><span>Software Version:</span> <span>${thermoObject.softwareVersion}</span></div>
+      <div class="modal-dialog-line"><span>Software Version:</span> <span>${thermoObject.softwareVersion || '-'}</span></div>
       <div class="modal-dialog-line"><span>Temperature:</span> <span>${thermoObject.currentTemp} &#8457</span></div> 
       <div class="modal-dialog-line"><span>Humidity:</span> <span>${thermoObject.currentHumidity || 0}%</span></div> 
-      <div class="modal-dialog-line"><span>Voltage:</span> <span>${thermoObject.batteryVoltage} V</span></div> 
+      <div class="modal-dialog-line"><span>Voltage:</span> <span>${thermoObject.batteryVoltage? thermoObject.batteryVoltage.toFixed(1) : '-'} V</span></div> 
     </div>
   </div>`
 
