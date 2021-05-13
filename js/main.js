@@ -64,6 +64,21 @@ const appendToCardList = (htmlString) => {
   cardList.innerHTML += htmlString; 
 }
 
+const clearCardList = () => {
+  const cardList = document.getElementById('device-card-flexbox');  
+  cardList.innerHTML = '';
+}
+
+const appendToFavoriteCardList = (htmlString) => {
+  const cardList = document.getElementById('device-favorites-card-flexbox');  
+  cardList.innerHTML += htmlString; 
+}
+
+const clearFavoriteCardList = () => {
+  const cardList = document.getElementById('device-favorites-card-flexbox');  
+  cardList.innerHTML = ''; 
+}
+
 const createThermoCard = (thermoCard) => {
   // <!-- Thermometer Card -->
   const newThermoDevice = getThermoCardString(thermoCard);
@@ -76,6 +91,17 @@ const createVentCard = (ventCard) => {
   appendToCardList(newVent);
 }
 
+const createFavoriteThermoCard = (thermoCard) => {
+  // <!-- Thermometer Card -->
+  const newThermoDevice = getThermoCardString(thermoCard);
+  appendToCardList(newThermoDevice);
+}
+
+const createFavoriteVentCard = (ventCard) => {
+//<!-- Vent Card -->
+  const newVent = getVentCardString(ventCard);
+  appendToFavoriteCardList(newVent);
+}
 
 const dataFilter = '[data-filter]';
 
@@ -84,11 +110,9 @@ const createCardsFromDataList = () => {
   ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
 }
 
-const createCardsFromFavoriteList = () => {
-  favoriteVentList
-  tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
-  ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
-
+const createCardsFromFavoriteList = () => {  
+  favoriteTempList.forEach((thermoDevice) => createThermoCard(thermoDevice));
+  favoriteVentList.forEach((ventDevice) => createVentCard(ventDevice));
 }
 
 const searchBox = document.getElementById("search");
@@ -301,6 +325,7 @@ const createTemperatureModal = (tempObject) => {
       this.classList.add('favorite');
       moveToFavorites({name: tempObject.deviceLocation, type: "temperature"});
     }
+    updateAllCards();
   });
 
   const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "temperature"});
@@ -422,14 +447,14 @@ const moveToFavorites = (deviceObj) => {
   //{deviceObj.name, deviceObj.type}
   const device = getFromDeviceListByObjectAndType(deviceObj);
   if(deviceObj.type === 'vent') {
-    ventDevices = ventDevices.filter((dev) => {return dev != device} );
+    ventDevices = ventDevices.filter((dev) => {return dev.controlName != device.controlName} );
     favoriteVentList.push(device);
   } else if(deviceObj.type === 'temperature') {
-    tempDevices = tempDevices.filter((dev) => {return dev != device});
+    tempDevices = tempDevices.filter((dev) => {return dev.deviceLocation != device.deviceLocation});
     favoriteTempList.push(device);
   }
 
-  updateFavoriteCount();
+  updateAllCards();
 }
 
 const removeFromFavorites = (deviceObj) => {
@@ -443,7 +468,7 @@ const removeFromFavorites = (deviceObj) => {
     tempDevices.push(device);
   }
 
-  updateFavoriteCount();
+  updateAllCards();
 }
 
 const getFromDeviceListByObjectAndType = (deviceObj) => {
@@ -452,7 +477,7 @@ const getFromDeviceListByObjectAndType = (deviceObj) => {
   let dev = undefined; //
   for(const device of allDevices){
     if(deviceObj.type === 'vent'){
-      dev = ventDevices.find( (dev) => { ventObject.controlName === deviceObj.name});
+      dev = ventDevices.find( (dev) => { return dev.controlName === deviceObj.name});
         break;
     }else if(deviceObj.type === 'temperature') {
         dev = tempDevices.find( (dev) => { return dev.deviceLocation === deviceObj.name});        
@@ -468,10 +493,20 @@ const updateFavoriteCount = () => {
   favoriteNum.innerText = `(${favoriteTempList.length + favoriteVentList.length})`;
 }
 
+
 const updateAllCards = () => {
+  //Update card list
+  clearCardList();
   createCardsFromDataList();
-  updateDeviceOverview();
   addModalSettingsEventListener();
+
+  // update favorite list
+  clearFavoriteCardList();
+  createCardsFromFavoriteList();
+  
+  //Update Summary table
+  updateDeviceOverview();  
+  //Update Favorite count
   updateFavoriteCount();
 }
 
@@ -481,6 +516,7 @@ favorites.addEventListener("click", () => {
   const fullPage = document.getElementById("page-block-white");
   fullPage.classList.add("is-visible");
   // create cards from the list
+
 })
 
 updateAllCards();
