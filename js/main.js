@@ -94,7 +94,7 @@ const createVentCard = (ventCard) => {
 const createFavoriteThermoCard = (thermoCard) => {
   // <!-- Thermometer Card -->
   const newThermoDevice = getThermoCardString(thermoCard);
-  appendToCardList(newThermoDevice);
+  appendToFavoriteCardList(newThermoDevice);
 }
 
 const createFavoriteVentCard = (ventCard) => {
@@ -111,8 +111,8 @@ const createCardsFromDataList = () => {
 }
 
 const createCardsFromFavoriteList = () => {  
-  favoriteTempList.forEach((thermoDevice) => createThermoCard(thermoDevice));
-  favoriteVentList.forEach((ventDevice) => createVentCard(ventDevice));
+  favoriteTempList.forEach((thermoDevice) => createFavoriteThermoCard(thermoDevice));
+  favoriteVentList.forEach((ventDevice) => createFavoriteVentCard(ventDevice));
 }
 
 const searchBox = document.getElementById("search");
