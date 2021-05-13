@@ -1,7 +1,9 @@
 import {getRemoteVentDevices, getRemoteTemperatureDevices} from './jsonFile.js';
 import {getVentCardString, getThermoCardString, getThermoModalString, getVentCardModal} from './htmlHelper.js'
 
-
+let ventDevices = getRemoteVentDevices();
+let tempDevices = getRemoteTemperatureDevices();
+let favoriteList = [];
 
 const calculateAvgTemp = (temperatureDeviceList) => {
   let count = 0.0;
@@ -73,8 +75,7 @@ const createVentCard = (ventCard) => {
   appendToCardList(newVent);
 }
 
-const ventDevices = getRemoteVentDevices();
-const tempDevices = getRemoteTemperatureDevices();
+
 const dataFilter = '[data-filter]';
 
 tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
@@ -212,6 +213,7 @@ const getDevicesFromHtml = () => {
   return [ventDeviceList, tempDeviceList];
 }
 
+
 const getDeviceObjectFromNameAndType = (deviceObj) => {
 
   const cards = document.getElementsByClassName("device-card"); 
@@ -262,8 +264,6 @@ for(const filter of Array.from(filterLink))
   })
 }
 
-updateDeviceOverview();
-
 
 const createTemperatureModal = (tempObject) => {  
   // Create String
@@ -273,26 +273,25 @@ const createTemperatureModal = (tempObject) => {
   const modalSection = document.getElementById("modal-section");
   modalSection.innerHTML += tempModalString;  
 
-  const modalX = findModalX({name: tempObject.controlName, type: "temperature"});
+  const modalX = findModalX({name: tempObject.deviceLocation, type: "temperature"});
   modalX.addEventListener('click', function (e) {
-    const modalHandle = findModalHandle({name: tempObject.controlName, type: "temperature"});
+    const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "temperature"});
     modalHandle.classList.remove("is-visible");
   })
-  const modalStar = findModalStar({name: tempObject.controlName, type: "temperature"});
+  const modalStar = findModalStar({name: tempObject.deviceLocation, type: "temperature"});
   modalStar.addEventListener('click', function (elm) {
     
     if(Array.from(elm.currentTarget.classList).includes("favorite")) {
-      elm.currentTarget.classList.remove("favorite");
+      this.classList.remove("favorite");
     } else {
-      elm.currentTarget.classList.add('favorite');
+      this.classList.add('favorite');
+      moveToFavorites({name: tempObject.deviceLocation, type: "temperature"});
     }
-  })
+  });
 
-  const modalHandle = findModalHandle({name: tempObject.controlName, type: "temperature"});
+  const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "temperature"});
   modalHandle.classList.add("is-visible");
-
 }
-
 
 const createVentModal = (tempObject) => {  
   // Create String
@@ -308,13 +307,18 @@ const createVentModal = (tempObject) => {
     modalHandle.classList.remove("is-visible");
   })
   const modalStar = findModalStar({name: tempObject.deviceLocation, type: "vent"});
-  
+  modalStar.addEventListener('click', function (elm) {
+    
+    if(Array.from(elm.currentTarget.classList).includes("favorite")) {
+      this.classList.remove("favorite");
+    } else {
+      this.classList.add('favorite');
+    }
+  });
+
   const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "vent"});
   modalHandle.classList.add("is-visible");
 }
-
-const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
-
 
 const isModalCreated = (deviceObj) => {
   const modals = document.getElementsByClassName("device-modal");
@@ -352,7 +356,7 @@ const findModalObjectByClass = (className, deviceObj) => {
   let foundValue = undefined;
 
   for(const modal of Array.from(modalObjects)) {
-    if(modal.dataset.location == deviceObj.name && 
+    if(modal.dataset.item == deviceObj.name && 
        modal.dataset.devicetype === deviceObj.type){
         foundValue = modal;
         break;
@@ -363,6 +367,7 @@ const findModalObjectByClass = (className, deviceObj) => {
 }
 
 
+const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
 
 for(const tripleDots of cardEditor) {
   tripleDots.addEventListener('click', function(event) {
@@ -387,3 +392,41 @@ document.addEventListener('keyup', (e) => {
     document.querySelector('.full-site-modal.is-visible').classList.remove('is-visible');
   }
 })
+
+
+
+const moveToFavorites = (deviceObj) => {
+  //{deviceObj.name, deviceObj.type}
+  const device = getFromDeviceListByObjectAndType(deviceObj);
+  if(deviceObj.type === 'vent') {
+    ventDevices = ventDevices.filter((dev) => {return dev != device} );
+  } else if(deviceObj.type === 'temperature') {
+    tempDevices = tempDevices.filter((dev) => {return dev != device});
+  }
+  favoriteList.push(device);
+
+}
+
+const removeFromFavorites = (deviceObj) => {
+  //{deviceObj.name, deviceObj.type}
+
+}
+
+const getFromDeviceListByObjectAndType = (deviceObj) => {
+   //{deviceObj.name, deviceObj.type}
+  const allDevices = [...ventDevices, ...tempDevices];
+  let dev = undefined; //
+  for(const device of allDevices){
+    if(deviceObj.type === 'vent'){
+      dev = ventDevices.find( (dev) => { ventObject.controlName === deviceObj.name});
+        break;
+    }else if(deviceObj.type === 'temperature') {
+        dev = tempDevices.find( (dev) => { return dev.deviceLocation === deviceObj.name});        
+        break;
+    }
+  }
+
+  return dev;
+}
+
+updateDeviceOverview();
