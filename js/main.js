@@ -325,8 +325,10 @@ const createVentModal = (ventObject) => {
     
     if(Array.from(elm.currentTarget.classList).includes("favorite")) {
       this.classList.remove("favorite");
+      removeFromFavorites({name: ventObject.controlName, type: "vent"});
     } else {
       this.classList.add('favorite');
+      moveToFavorites({name: ventObject.controlName, type:"vent"});
     }
   });
 
@@ -405,7 +407,12 @@ const addModalSettingsEventListener = () => {
 
 document.addEventListener('keyup', (e) => {
   if(e.key === 'Escape'){
-    document.querySelector('.full-site-modal.is-visible').classList.remove('is-visible');
+    if(document.querySelector('.full-site-modal.is-visible')){
+       document.querySelector('.full-site-modal.is-visible').classList.remove('is-visible');
+    } 
+    if(document.querySelector('.page-block-white.is-visible')){
+       document.querySelector('.page-block-white.is-visible').classList.remove('is-visible');
+    }
   }
 })
 
@@ -421,6 +428,8 @@ const moveToFavorites = (deviceObj) => {
     tempDevices = tempDevices.filter((dev) => {return dev != device});
     favoriteTempList.push(device);
   }
+
+  updateFavoriteCount();
 }
 
 const removeFromFavorites = (deviceObj) => {
@@ -433,6 +442,8 @@ const removeFromFavorites = (deviceObj) => {
     favoriteTempList = favoriteTempList.filter((dev) => {return dev != device});
     tempDevices.push(device);
   }
+
+  updateFavoriteCount();
 }
 
 const getFromDeviceListByObjectAndType = (deviceObj) => {
@@ -452,11 +463,25 @@ const getFromDeviceListByObjectAndType = (deviceObj) => {
   return dev;
 }
 
+const updateFavoriteCount = () => { 
+  const favoriteNum = document.getElementById("number-of-favorites");
+  favoriteNum.innerText = `(${favoriteTempList.length + favoriteVentList.length})`;
+}
+
 const updateAllCards = () => {
   createCardsFromDataList();
   updateDeviceOverview();
   addModalSettingsEventListener();
+  updateFavoriteCount();
 }
+
+const favorites = document.getElementById("favorites");
+favorites.addEventListener("click", () => {
+  //open favorite modal, if
+  const fullPage = document.getElementById("page-block-white");
+  fullPage.classList.add("is-visible");
+  // create cards from the list
+})
 
 updateAllCards();
 

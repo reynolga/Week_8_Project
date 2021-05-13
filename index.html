@@ -15,7 +15,7 @@
       <div class="nav-logo"><i class="fas fa-h-square"></i></div>    
       <ul class="ul-defaults-none nav-bar-right">
         <li>Home</li>
-        <li>Favorites</li>        
+        <li id="favorites">Favorites <span id="number-of-favorites">(0)</span>  </li>        
       </ul>
     </nav>  
   </header>
@@ -71,6 +71,28 @@
  <section id="modal-section">
    <!--  Modals are created dynamically -->
  </section>
+ 
+
+ <section class="favorite-section">  
+   <div id="page-block-white" class="page-block-white">
+    <div class="full-modal-header">
+     <h2>Favorites</h2>
+     <div class="close-dialog-wrapper"><i class="fas fa-times"></i></div>
+    </div>
+     <div id="device-favorites-card-flexbox" class="device-card-flexbox">
+
+        <!-- Content Generated from Json Objects after API call -->
+        <!-- Vent Card -->
+        <!-- Thermometer Card -->
+
+     </div>
+   </div>  
+  
+
+    
+    
+  </div>   
+</section>
   
 
   <script type="module" src="./js/jsonFile.js" async defer></script>

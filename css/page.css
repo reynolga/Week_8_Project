@@ -197,7 +197,21 @@ header .nav-logo i {
 }
 
 .page-block {
-  background:rgba(0, 0, 0, 0.8)
+  background:rgba(0, 0, 0, 0.8);
+}
+
+.page-block-white {  
+  position: fixed;  
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+  padding: 1rem;
+  transition: all 0.35s ease-in;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+  background:white;
 }
 
 .full-site-modal {
@@ -226,6 +240,7 @@ header .nav-logo i {
 .modal-header {
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
 
 .modal-header .vent-icon-wrapper, 
@@ -244,6 +259,11 @@ header .nav-logo i {
   flex: 1
 }
 
+.full-modal-header {
+  display: flex;
+  direction: row;
+}
+
 .is-visible {
   visibility: visible;
   opacity: 1;
@@ -259,6 +279,7 @@ header .nav-logo i {
 
 .close-dialog-wrapper{
   margin-bottom: auto;  
+  margin-left: auto;
   cursor: pointer;
 }
 
