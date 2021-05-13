@@ -274,7 +274,14 @@ const createTemperatureModal = (tempObject) => {
   modalSection.innerHTML += tempModalString;  
 
   const modalX = findModalX({name: tempObject.controlName, type: "temperature"});
+  modalX.addEventListener('click', function (e) {
+    const modalHandle = findModalHandle({name: tempObject.controlName, type: "temperature"});
+    modalHandle.classList.remove("is-visible");
+  })
   const modalStar = findModalStar({name: tempObject.controlName, type: "temperature"});
+  
+  const modalHandle = findModalHandle({name: tempObject.controlName, type: "temperature"});
+  modalHandle.classList.add("is-visible");
 
 }
 
@@ -287,9 +294,15 @@ const createVentModal = (tempObject) => {
   const modalSection = document.getElementById("modal-section");
   modalSection.innerHTML += tempModalString;  
 
-  const modalX = findModalX({name: tempObject.controlName, type: "vent"});
-  const modalStar = findModalStar({name: tempObject.controlName, type: "vent"});
+  const modalX = findModalX({name: tempObject.deviceLocation, type: "vent"});
+  modalX.addEventListener('click', function (e) {
+    const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "vent"});
+    modalHandle.classList.remove("is-visible");
+  })
+  const modalStar = findModalStar({name: tempObject.deviceLocation, type: "vent"});
   
+  const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "vent"});
+  modalHandle.classList.add("is-visible");
 }
 
 const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
@@ -310,6 +323,10 @@ const isModalCreated = (deviceObj) => {
   }
 
   return foundValue;
+}
+
+const findModalHandle = (deviceObj) => {
+  return findModalObjectByClass("device-modal", deviceObj);
 }
 
 const findModalX = (deviceObj) => {  

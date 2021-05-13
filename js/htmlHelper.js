@@ -54,7 +54,7 @@ const getVentCardString = (ventCard) => {
   */
 
 
-    const modalDialog = `<div class="full-site-modal device-modal page-block" data-location="${thermoObject.deviceLocation}" data-deviceType="temperature" data-animation="zoomInOut">      
+    const modalDialog = `<div class="full-site-modal device-modal page-block" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature" data-animation="zoomInOut">      
     <div class="modal">
       <div class="modal-header">
         <div class="thermometer-icon-wrapper">
@@ -106,7 +106,7 @@ const getVentCardModal = (ventObject) =>{
           <i class="fab fa-elementor"></i>          
         </div>
         <h2>Vent</h2>
-        <div class="starWrapper" data-item="${ventObject.deviceLocation}" data-deviceType="vent"><i class="fas fa-star"></i></div>
+        <div class="starWrapper" data-item="${ventObject.controlName}" data-deviceType="vent"><i class="fas fa-star"></i></div>
         <div class="close-dialog-wrapper" data-item="${ventObject.controlName}" data-deviceType="vent">
           <i class="fas fa-times"></i>
         </div>
@@ -115,7 +115,7 @@ const getVentCardModal = (ventObject) =>{
       <div class="modal-dialog-line"><span>Mac Address:</span> <span>${ventObject.macAddress}</span></div>
       <div class="modal-dialog-line"><span>Ip Address:</span> <span>${ventObject.ipAddress}</span></div>
       <div class="modal-dialog-line"><span>Current Position:</span> <span>${ventObject.currentSetPosition} %</span></div>
-      <div class="modal-dialog-line"><span>Software Version:</span> <span>${ventObject.temperature}/span></div>
+      <div class="modal-dialog-line"><span>Software Version:</span> <span>${ventObject.softwareVersion}</span></div>
       <div class="modal-dialog-line"><span>Control Code:</span> <span>${ventObject.controlCode}</span></div> 
     </div>
   </div>`
