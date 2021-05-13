@@ -272,7 +272,12 @@ const createTemperatureModal = (tempObject) => {
   //Append to html
   const modalSection = document.getElementById("modal-section");
   modalSection.innerHTML += tempModalString;  
+
+  const modalX = findModalX({name: tempObject.controlName, type: "temperature"});
+  const modalStar = findModalStar({name: tempObject.controlName, type: "temperature"});
+
 }
+
 
 const createVentModal = (tempObject) => {  
   // Create String
@@ -281,11 +286,15 @@ const createVentModal = (tempObject) => {
   //Append to html
   const modalSection = document.getElementById("modal-section");
   modalSection.innerHTML += tempModalString;  
+
+  const modalX = findModalX({name: tempObject.controlName, type: "vent"});
+  const modalStar = findModalStar({name: tempObject.controlName, type: "vent"});
+  
 }
 
 const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
 
-//const modalDialog = `<div id="device-modal" data-item="${ventObject.controlName}" data-deviceType="vent" class="full-site-modal page-block" data-animation="zoomInOut">      
+
 const isModalCreated = (deviceObj) => {
   const modals = document.getElementsByClassName("device-modal");
 
@@ -302,6 +311,33 @@ const isModalCreated = (deviceObj) => {
 
   return foundValue;
 }
+
+const findModalX = (deviceObj) => {  
+  return findModalObjectByClass("close-dialog-wrapper", deviceObj); 
+}
+
+const findModalStar = (deviceObj) => {
+  return findModalObjectByClass("starWrapper", deviceObj);
+}
+
+const findModalObjectByClass = (className, deviceObj) => {
+  const modalObjects = document.getElementsByClassName(className);
+  
+  if(!modalObjects) return false;
+  let foundValue = undefined;
+
+  for(const modal of Array.from(modalObjects)) {
+    if(modal.dataset.location == deviceObj.name && 
+       modal.dataset.devicetype === deviceObj.type){
+        foundValue = modal;
+        break;
+       }
+  }
+
+  return foundValue;
+}
+
+
 
 for(const tripleDots of cardEditor) {
   tripleDots.addEventListener('click', function(event) {
@@ -320,7 +356,6 @@ for(const tripleDots of cardEditor) {
       }
   })
 }
-
 
 document.addEventListener('keyup', (e) => {
   if(e.key === 'Escape'){

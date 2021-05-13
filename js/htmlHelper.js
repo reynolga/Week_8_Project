@@ -18,7 +18,7 @@ const getVentCardString = (ventCard) => {
 
   const getThermoCardString = (thermoObject) => {
     // <!-- Thermometer Card -->
-    const newThermoDevice = `<div data-item="${thermoObject.deviceLocation}" data-deviceType="temperature" class="device-card">
+    const newThermoDevice = `<div class="device-card" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature">
       <div class="device-card-header">
         <div class="thermometer-icon-wrapper">
           <i class="fas fa-thermometer-half"></i>
@@ -54,15 +54,15 @@ const getVentCardString = (ventCard) => {
   */
 
 
-    const modalDialog = `<div class="full-site-modal device-modal page-block" data-location="${thermoObject.deviceLocation}" data-deviceType="temperature" class="full-site-modal page-block" data-animation="zoomInOut">      
+    const modalDialog = `<div class="full-site-modal device-modal page-block" data-location="${thermoObject.deviceLocation}" data-deviceType="temperature" data-animation="zoomInOut">      
     <div class="modal">
       <div class="modal-header">
         <div class="thermometer-icon-wrapper">
           <i class="fas fa-thermometer-half"></i>
         </div>
         <h2>Temperature Sensor</h2>
-        <div class="starWrapper"><i class="fas fa-star"></i></div>
-        <div class="close-dialog-wrapper"><i class="fas fa-times"></i></div>
+        <div class="starWrapper" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature"><i class="fas fa-star"></i></div>
+        <div class="close-dialog-wrapper" data-item="${thermoObject.deviceLocation}" data-devicetype="temperature"><i class="fas fa-times"></i></div>
       </div>
       <div class="modal-dialog-line"><span>Room:</span><span>${thermoObject.deviceLocation}</span></div>
       <div class="modal-dialog-line"><span>Mac Address:</span> <span>${thermoObject.macAddress}</span></div>
@@ -99,15 +99,15 @@ const getVentCardModal = (ventObject) =>{
   "tempOffsetCalibration":-4.599},
   */
   
-  const modalDialog = `<div class="full-site-modal device-modal page-block" data-item="${ventObject.controlName}" data-deviceType="vent" class="full-site-modal page-block" data-animation="zoomInOut">      
+  const modalDialog = `<div class="full-site-modal device-modal page-block" data-item="${ventObject.controlName}" data-deviceType="vent" data-animation="zoomInOut">      
     <div class="modal">      
       <div class="modal-header">
         <div class="vent-icon-wrapper">
           <i class="fab fa-elementor"></i>          
         </div>
         <h2>Vent</h2>
-        <div class="starWrapper"><i class="fas fa-star"></i></div>
-        <div class="close-dialog-wrapper">
+        <div class="starWrapper" data-item="${ventObject.deviceLocation}" data-deviceType="vent"><i class="fas fa-star"></i></div>
+        <div class="close-dialog-wrapper" data-item="${ventObject.controlName}" data-deviceType="vent">
           <i class="fas fa-times"></i>
         </div>
       </div>
