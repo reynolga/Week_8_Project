@@ -233,17 +233,19 @@ const getDeviceObjectFromNameAndType = (deviceObj) => {
     //If displayed
     if(card.style.display != 'none') {
       
-      if(card.dataset.item == deviceObj.name){
-
-        if(card.dataset.devicetype == "vent"){
-          device = ventDevices.find(vent => vent.controlName === deviceObj.name);  
-          break;   
-        } else if(card.dataset.devicetype == 'temperature'){      
-          device = tempDevices.find(vent => vent.deviceLocation === card.dataset.item);           
-          break;
-        }
+      if(card.dataset.item === deviceObj.name && 
+         card.dataset.devicetype === deviceObj.type){
+           if(card.dataset.devicetype === "vent"){
+            device = ventDevices.find(vent => vent.controlName === deviceObj.name);  
+            break;   
+           }
+           else if(card.dataset.devicetype === 'temperature'){      
+            device = tempDevices.find(vent => vent.deviceLocation === card.dataset.item);           
+            break;
+           }
       }
     }
+    
   }
 
   return device;
@@ -271,6 +273,7 @@ for(const filter of Array.from(filterLink))
     }
 
     updateDeviceOverview(); //After changes to the table.
+    addModalSettingsEventListener();
   })
 }
 
@@ -304,20 +307,20 @@ const createTemperatureModal = (tempObject) => {
   modalHandle.classList.add("is-visible");
 }
 
-const createVentModal = (tempObject) => {  
+const createVentModal = (ventObject) => {  
   // Create String
-  const tempModalString = getVentCardModal(tempObject);
+  const tempModalString = getVentCardModal(ventObject);
 
   //Append to html
   const modalSection = document.getElementById("modal-section");
   modalSection.innerHTML += tempModalString;  
 
-  const modalX = findModalX({name: tempObject.deviceLocation, type: "vent"});
+  const modalX = findModalX({name: ventObject.controlName, type: "vent"});
   modalX.addEventListener('click', function (e) {
-    const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "vent"});
+    const modalHandle = findModalHandle({name: ventObject.controlName, type: "vent"});
     modalHandle.classList.remove("is-visible");
   })
-  const modalStar = findModalStar({name: tempObject.deviceLocation, type: "vent"});
+  const modalStar = findModalStar({name: ventObject.controlName, type: "vent"});
   modalStar.addEventListener('click', function (elm) {
     
     if(Array.from(elm.currentTarget.classList).includes("favorite")) {
@@ -327,7 +330,7 @@ const createVentModal = (tempObject) => {
     }
   });
 
-  const modalHandle = findModalHandle({name: tempObject.deviceLocation, type: "vent"});
+  const modalHandle = findModalHandle({name: ventObject.controlName, type: "vent"});
   modalHandle.classList.add("is-visible");
 }
 
@@ -378,7 +381,7 @@ const findModalObjectByClass = (className, deviceObj) => {
 }
 
 
-const addModalPopupEventListener = () => {  
+const addModalSettingsEventListener = () => {  
   const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
 
   for(const tripleDots of cardEditor) {
@@ -452,7 +455,7 @@ const getFromDeviceListByObjectAndType = (deviceObj) => {
 const updateAllCards = () => {
   createCardsFromDataList();
   updateDeviceOverview();
-  addModalPopupEventListener();
+  addModalSettingsEventListener();
 }
 
 updateAllCards();
