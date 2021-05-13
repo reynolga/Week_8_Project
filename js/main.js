@@ -279,7 +279,15 @@ const createTemperatureModal = (tempObject) => {
     modalHandle.classList.remove("is-visible");
   })
   const modalStar = findModalStar({name: tempObject.controlName, type: "temperature"});
-  
+  modalStar.addEventListener('click', function (elm) {
+    
+    if(Array.from(elm.currentTarget.classList).includes("favorite")) {
+      elm.currentTarget.classList.remove("favorite");
+    } else {
+      elm.currentTarget.classList.add('favorite');
+    }
+  })
+
   const modalHandle = findModalHandle({name: tempObject.controlName, type: "temperature"});
   modalHandle.classList.add("is-visible");
 

@@ -200,7 +200,6 @@ header .nav-logo i {
   background:rgba(0, 0, 0, 0.8)
 }
 
-
 .full-site-modal {
   display: flex;
   position: fixed;  
@@ -260,6 +259,7 @@ header .nav-logo i {
 
 .close-dialog-wrapper{
   margin-bottom: auto;  
+  cursor: pointer;
 }
 
 .close-dialog-wrapper i {
@@ -274,4 +274,9 @@ header .nav-logo i {
   margin-left: 15px;  
   color: black;
   font-size: 26px;
+  cursor: pointer;
+}
+
+.starWrapper.favorite {
+   color: #ff9800;;
 }
