@@ -3,7 +3,8 @@ import {getVentCardString, getThermoCardString, getThermoModalString, getVentCar
 
 let ventDevices = getRemoteVentDevices();
 let tempDevices = getRemoteTemperatureDevices();
-let favoriteList = [];
+let favoriteTempList = [];
+let favoriteVentList = [];
 
 const calculateAvgTemp = (temperatureDeviceList) => {
   let count = 0.0;
@@ -78,8 +79,17 @@ const createVentCard = (ventCard) => {
 
 const dataFilter = '[data-filter]';
 
-tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
-ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
+const createCardsFromDataList = () => {
+  tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
+  ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
+}
+
+const createCardsFromFavoriteList = () => {
+  favoriteVentList
+  tempDevices.forEach((thermoDevice) => createThermoCard(thermoDevice));
+  ventDevices.forEach((ventDevice) => createVentCard(ventDevice));
+
+}
 
 const searchBox = document.getElementById("search");
 
@@ -283,6 +293,7 @@ const createTemperatureModal = (tempObject) => {
     
     if(Array.from(elm.currentTarget.classList).includes("favorite")) {
       this.classList.remove("favorite");
+      removeFromFavorites({name: tempObject.deviceLocation, type: "temperature"});
     } else {
       this.classList.add('favorite');
       moveToFavorites({name: tempObject.deviceLocation, type: "temperature"});
@@ -367,24 +378,26 @@ const findModalObjectByClass = (className, deviceObj) => {
 }
 
 
-const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
+const addModalPopupEventListener = () => {  
+  const cardEditor = document.getElementsByClassName("triple-dot-wrapper");
 
-for(const tripleDots of cardEditor) {
-  tripleDots.addEventListener('click', function(event) {
-      console.log('clicked' + event + this);
+  for(const tripleDots of cardEditor) {
+    tripleDots.addEventListener('click', function(event) {
+        console.log('clicked' + event + this);
 
-      const deviceObject = getDeviceObjectFromNameAndType({name: this.dataset.item, type: this.dataset.devicetype})
+        const deviceObject = getDeviceObjectFromNameAndType({name: this.dataset.item, type: this.dataset.devicetype})
 
-      if(!isModalCreated({name: this.dataset.item, type: this.dataset.devicetype}))
-      {
-        //CreateModal
-        if(this.dataset.devicetype === 'temperature'){
-          createTemperatureModal(deviceObject);
-        }else if(this.dataset.devicetype === 'vent'){
-          createVentModal(deviceObject);
+        if(!isModalCreated({name: this.dataset.item, type: this.dataset.devicetype}))
+        {
+          //CreateModal
+          if(this.dataset.devicetype === 'temperature'){
+            createTemperatureModal(deviceObject);
+          }else if(this.dataset.devicetype === 'vent'){
+            createVentModal(deviceObject);
+          }
         }
-      }
-  })
+    })
+  }
 }
 
 document.addEventListener('keyup', (e) => {
@@ -400,16 +413,23 @@ const moveToFavorites = (deviceObj) => {
   const device = getFromDeviceListByObjectAndType(deviceObj);
   if(deviceObj.type === 'vent') {
     ventDevices = ventDevices.filter((dev) => {return dev != device} );
+    favoriteVentList.push(device);
   } else if(deviceObj.type === 'temperature') {
     tempDevices = tempDevices.filter((dev) => {return dev != device});
+    favoriteTempList.push(device);
   }
-  favoriteList.push(device);
-
 }
 
 const removeFromFavorites = (deviceObj) => {
   //{deviceObj.name, deviceObj.type}
-
+  const device = getFromDeviceListByObjectAndType(deviceObj);
+  if(deviceObj.type === 'vent') {
+    favoriteVentList = favoriteVentList.filter((dev) => {return dev != device} );
+    ventDevices.push(device);
+  } else if(deviceObj.type === 'temperature') {
+    favoriteTempList = favoriteTempList.filter((dev) => {return dev != device});
+    tempDevices.push(device);
+  }
 }
 
 const getFromDeviceListByObjectAndType = (deviceObj) => {
@@ -429,4 +449,11 @@ const getFromDeviceListByObjectAndType = (deviceObj) => {
   return dev;
 }
 
-updateDeviceOverview();
+const updateAllCards = () => {
+  createCardsFromDataList();
+  updateDeviceOverview();
+  addModalPopupEventListener();
+}
+
+updateAllCards();
+
