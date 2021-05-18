@@ -140,7 +140,7 @@ header .nav-logo i {
 }
 
 .device-card {
-  width: 315px;
+  width: 325px;
   background: white;
   text-align: center;
   height: 150px;
@@ -190,6 +190,11 @@ header .nav-logo i {
   margin-left: auto;
   cursor: pointer;
 }
+.triple-dot-wrapper i{
+  background: #e4e4e4;
+  padding: 7px;
+  border-radius: 9px;
+ }
 
 .device-card p{
   font-size: 40px;
@@ -298,6 +303,12 @@ header .nav-logo i {
   cursor: pointer;
 }
 
+.starWrapper-favorite-card.favorite,
 .starWrapper.favorite {
-   color: #ff9800;;
+   color: #ff9800;
+}
+
+.starWrapper-favorite-card {
+  margin-left: auto;
+  margin-right: 15px;
 }

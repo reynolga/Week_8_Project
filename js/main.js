@@ -1,5 +1,5 @@
 import {getRemoteVentDevices, getRemoteTemperatureDevices} from './jsonFile.js';
-import {getVentCardString, getThermoCardString, getThermoModalString, getVentCardModal} from './htmlHelper.js'
+import {getVentCardString, getFavoriteVentCardString, getThermoCardString, getFavoriteThermoCardString, getThermoModalString, getVentCardModal} from './htmlHelper.js'
 
 let ventDevices = getRemoteVentDevices();
 let tempDevices = getRemoteTemperatureDevices();
@@ -93,13 +93,13 @@ const createVentCard = (ventCard) => {
 
 const createFavoriteThermoCard = (thermoCard) => {
   // <!-- Thermometer Card -->
-  const newThermoDevice = getThermoCardString(thermoCard);
+  const newThermoDevice = getFavoriteThermoCardString(thermoCard);
   appendToFavoriteCardList(newThermoDevice);
 }
 
 const createFavoriteVentCard = (ventCard) => {
 //<!-- Vent Card -->
-  const newVent = getVentCardString(ventCard);
+  const newVent = getFavoriteVentCardString(ventCard);
   appendToFavoriteCardList(newVent);
 }
 

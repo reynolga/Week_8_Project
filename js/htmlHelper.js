@@ -16,6 +16,24 @@ const getVentCardString = (ventCard) => {
     return newVent;
   }
 
+  const getFavoriteVentCardString = (ventCard) => {
+    //<!-- Vent Card -->
+      const newVent = `<div data-item="${ventCard.controlName}" data-deviceType="vent" class="device-card">
+        <div class="device-card-header">
+          <div class="vent-icon-wrapper">
+            <i class="fab fa-elementor"></i>
+          </div>
+          <h2>${ventCard.controlName}</h2>
+          <div class="starWrapper-favorite-card" data-item="${ventCard.controlName}" data-deviceType="temperature"><i class="fas fa-star"></i></div>        
+        </div>
+        <p>${ventCard.currentSetPosition}%</p>      
+      </div>`;
+  
+      return newVent;
+    }
+
+  
+
   const getThermoCardString = (thermoObject) => {
     // <!-- Thermometer Card -->
     const newThermoDevice = `<div class="device-card" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature">
@@ -27,6 +45,21 @@ const getVentCardString = (ventCard) => {
         <div class="triple-dot-wrapper" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature">
           <i class="fas fa-ellipsis-v"></i>  
         </div> 
+      </div>
+      <p>${thermoObject.currentTemp.toFixed(1)} &#8457</p>
+    </div>`   
+    return newThermoDevice; 
+  }
+
+  const getFavoriteThermoCardString = (thermoObject) => {
+    // <!-- Thermometer Card -->
+    const newThermoDevice = `<div class="device-card" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature">
+      <div class="device-card-header">
+        <div class="thermometer-icon-wrapper">
+          <i class="fas fa-thermometer-half"></i>
+        </div>
+        <h2>${thermoObject.deviceLocation}</h2>  
+        <div class="starWrapper-favorite-card" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature"><i class="fas fa-star"></i></div>                
       </div>
       <p>${thermoObject.currentTemp.toFixed(1)} &#8457</p>
     </div>`   
@@ -127,4 +160,4 @@ const getVentCardModal = (ventObject) =>{
 
 
 
-export {getVentCardString, getThermoCardString, getThermoModalString, getVentCardModal};
+export {getVentCardString, getFavoriteVentCardString, getThermoCardString, getFavoriteThermoCardString, getThermoModalString, getVentCardModal};
