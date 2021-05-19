@@ -303,7 +303,6 @@ header .nav-logo i {
   cursor: pointer;
 }
 
-.starWrapper-favorite-card.favorite,
 .starWrapper.favorite {
    color: #ff9800;
 }
@@ -311,4 +310,6 @@ header .nav-logo i {
 .starWrapper-favorite-card {
   margin-left: auto;
   margin-right: 15px;
+  color: #ff9800;
+  cursor: pointer;
 }

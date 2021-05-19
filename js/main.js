@@ -459,7 +459,7 @@ const moveToFavorites = (deviceObj) => {
 
 const removeFromFavorites = (deviceObj) => {
   //{deviceObj.name, deviceObj.type}
-  const device = getFromDeviceListByObjectAndType(deviceObj);
+  const device = getFromFavoriteDeviceListByObjectAndType(deviceObj);
   if(deviceObj.type === 'vent') {
     favoriteVentList = favoriteVentList.filter((dev) => {return dev != device} );
     ventDevices.push(device);
@@ -488,10 +488,41 @@ const getFromDeviceListByObjectAndType = (deviceObj) => {
   return dev;
 }
 
+const getFromFavoriteDeviceListByObjectAndType = (deviceObj) => {
+  //{deviceObj.name, deviceObj.type}
+ const allDevices = [...favoriteVentList, ...favoriteTempList];
+ let dev = undefined; //
+ for(const device of allDevices){
+   if(deviceObj.type === 'vent'){
+     dev = favoriteVentList.find( (dev) => { return dev.controlName === deviceObj.name});
+       break;
+   }else if(deviceObj.type === 'temperature') {
+       dev = favoriteTempList.find( (dev) => { return dev.deviceLocation === deviceObj.name});        
+       break;
+   }
+ }
+
+ return dev;
+}
+
 const updateFavoriteCount = () => { 
   const favoriteNum = document.getElementById("number-of-favorites");
   favoriteNum.innerText = `(${favoriteTempList.length + favoriteVentList.length})`;
 }
+
+
+const addFavoritesStarEventListener = () => {  
+  const cardEditor = document.getElementsByClassName("starWrapper-favorite-card");
+
+  for(const start of cardEditor) {
+    start.addEventListener('click', function(event) {
+        console.log('clicked' + event + this);
+        
+        removeFromFavorites({name: this.dataset.item, type: this.dataset.devicetype});        
+    })
+  }
+}
+
 
 
 const updateAllCards = () => {
@@ -503,6 +534,7 @@ const updateAllCards = () => {
   // update favorite list
   clearFavoriteCardList();
   createCardsFromFavoriteList();
+  addFavoritesStarEventListener();
   
   //Update Summary table
   updateDeviceOverview();  
