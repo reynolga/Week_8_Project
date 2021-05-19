@@ -461,12 +461,15 @@ const removeFromFavorites = (deviceObj) => {
   //{deviceObj.name, deviceObj.type}
   const device = getFromFavoriteDeviceListByObjectAndType(deviceObj);
   if(deviceObj.type === 'vent') {
-    favoriteVentList = favoriteVentList.filter((dev) => {return dev != device} );
+    favoriteVentList = favoriteVentList.filter((dev) => {return dev != device} );   
     ventDevices.push(device);
   } else if(deviceObj.type === 'temperature') {
     favoriteTempList = favoriteTempList.filter((dev) => {return dev != device});
     tempDevices.push(device);
   }
+
+  const modalStar = findModalStar(deviceObj);  
+  modalStar.classList.remove("favorite");
 
   updateAllCards();
 }

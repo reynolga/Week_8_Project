@@ -24,7 +24,7 @@ const getVentCardString = (ventCard) => {
             <i class="fab fa-elementor"></i>
           </div>
           <h2>${ventCard.controlName}</h2>
-          <div class="starWrapper-favorite-card" data-item="${ventCard.controlName}" data-deviceType="temperature"><i class="fas fa-star"></i></div>        
+          <div class="starWrapper-favorite-card" data-item="${ventCard.controlName}" data-deviceType="vent"><i class="fas fa-star"></i></div>        
         </div>
         <p>${ventCard.currentSetPosition}%</p>      
       </div>`;
@@ -93,7 +93,7 @@ const getVentCardString = (ventCard) => {
         <div class="thermometer-icon-wrapper">
           <i class="fas fa-thermometer-half"></i>
         </div>
-        <h2>Temperature Sensor</h2>
+        <h2>${thermoObject.deviceLocation} Temperature Sensor</h2>
         <div class="starWrapper" data-item="${thermoObject.deviceLocation}" data-deviceType="temperature"><i class="fas fa-star"></i></div>
         <div class="close-dialog-wrapper" data-item="${thermoObject.deviceLocation}" data-devicetype="temperature"><i class="fas fa-times"></i></div>
       </div>
@@ -138,7 +138,7 @@ const getVentCardModal = (ventObject) =>{
         <div class="vent-icon-wrapper">
           <i class="fab fa-elementor"></i>          
         </div>
-        <h2>Vent</h2>
+        <h2>${ventObject.controlName} Vent</h2>
         <div class="starWrapper" data-item="${ventObject.controlName}" data-deviceType="vent"><i class="fas fa-star"></i></div>
         <div class="close-dialog-wrapper" data-item="${ventObject.controlName}" data-deviceType="vent">
           <i class="fas fa-times"></i>

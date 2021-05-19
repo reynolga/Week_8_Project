@@ -177,13 +177,14 @@ header .nav-logo i {
   margin-right: 15px;
   margin-top: auto;
   margin-bottom: auto;
+  border-radius: 5px;
 }
 
 .thermometer-icon-wrapper {
   margin-left: 5px;
-  background: #ff9800;
-  padding: 7px 14px;
-  border-radius: 25px;  
+  background: #ff6c6c;
+  padding: 6px 6px;
+  border-radius: 5px;  
 }
 
 .triple-dot-wrapper{
@@ -235,7 +236,6 @@ header .nav-logo i {
 
 .modal {
   background: white;
-  height: 400px;
   margin: auto;
   padding: 1rem;
   width: 800px;
@@ -246,20 +246,22 @@ header .nav-logo i {
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .modal-header .vent-icon-wrapper, 
 .modal-header .thermometer-icon-wrapper {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .modal-header h2 {
-  font-size:48px
+  font-size:28px
 }
 
 .modal-dialog-line {
   display: flex;  
   font-size: 24px;
+  flex-wrap: wrap;
   margin-left: 20px;
   flex: 1
 }
