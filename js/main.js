@@ -547,9 +547,13 @@ favorites.addEventListener("click", () => {
   //open favorite modal, if
   const fullPage = document.getElementById("page-block-white");
   fullPage.classList.add("is-visible");
-  // create cards from the list
-
 })
+
+const favoriteModal = document.getElementById("close-favorite");
+favoriteModal.addEventListener('click', () => {
+  document.getElementById("page-block-white").classList.remove("is-visible");
+})
+
 
 updateAllCards();
 
